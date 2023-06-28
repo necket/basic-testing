@@ -1,3 +1,4 @@
+import lodash from 'lodash';
 import {
   getBankAccount,
   BankAccount,
@@ -51,10 +52,10 @@ describe('BankAccount', () => {
   });
 
   test('fetchBalance should return number in case if request did not failed', async () => {
+    const randomMock = jest.spyOn(lodash, 'random').mockReturnValue(1);
     const result = await account.fetchBalance();
-    if (result) {
-      expect(typeof result).toBe('number');
-    }
+    expect(typeof result).toBe('number');
+    randomMock.mockRestore();
   });
 
   test('should set new balance if fetchBalance returned number', async () => {
